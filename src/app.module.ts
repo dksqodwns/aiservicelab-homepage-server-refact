@@ -27,7 +27,7 @@ import { Plan } from './entities/plan';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Plan, Notice, Project, Post]),
     ConfigModule.forRoot({
       envFilePath: './.env',
       isGlobal: true,
