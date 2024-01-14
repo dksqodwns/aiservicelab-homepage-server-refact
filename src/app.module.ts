@@ -10,6 +10,7 @@ import { Post } from './entities/post';
 import { Notice } from './entities/notice';
 import { Likes } from './entities/likes';
 import { Plan } from './entities/plan';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -33,8 +34,19 @@ import { Plan } from './entities/plan';
       isGlobal: true,
     }),
     UserModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: {
+          expiresIn: '5m',
+        },
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
+  exports: [TypeOrmModule],
 })
 export class AppModule {}

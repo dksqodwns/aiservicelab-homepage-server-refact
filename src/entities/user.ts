@@ -15,14 +15,14 @@ export class User {
   pwd: string;
 
   @Column()
-  question: string;
+  question: number;
 
   @Column()
   answer: string;
 
-  @Column()
+  @Column({ default: 1 })
   master: number;
 
-  @Column()
+  @Column({ nullable: true })
   token: string;
 }
